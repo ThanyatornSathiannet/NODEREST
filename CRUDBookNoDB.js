@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-let book = [
+let books = [
     {
         id: 1,
         title: 'Book 1',
@@ -22,11 +22,15 @@ let book = [
     }
 ];
 
-app.get('/books', (req,res) => {
+app.get('/books', (req, res) => {
+    res.json(books);
+});
+
+app.get('/books/:id', (req,res) => {
     const book = books.find(b => b.id === parseInt(req.params.id));
     if (!book) res.status(404).send('Book not found');
     res.json(book);
-})
+});
 
 app.post('/books', (req, res) => {
     const book = {
@@ -39,7 +43,7 @@ app.post('/books', (req, res) => {
 });
 
 app.put('/books/:id', (req, res) => {
-    const book = book.find(b => b.id === parseInt(req.params.id));
+    const book = books.find(b => b.id === parseInt(req.params.id));
     if (!book) res.status(404).send('Book not found');
     const index = books.indexOf(book);
     books.splice(index, 1);
