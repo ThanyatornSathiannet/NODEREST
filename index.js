@@ -34,7 +34,7 @@ app.get('/book/:id', (req, res) => {
 
 app.post('/books', (req,res) =>{
     const book = req.body;
-    db.run('INSERT books SET title = ?, author = ? WHERE id = ?', book.title, book.author, req.params.id, function(err) {
+    db.run('INSERT INTO books (title, author) VALUES (?, ?)', book.title, book.author, req.params.id, function(err) {
         if (err) {
             res.status(500).send(err);
 
