@@ -38,7 +38,7 @@ app.get('/books', (req,res) => {
 });
 
 app.get('/books/:id', (req,res) => {
-    Book.findByPk(req.params.id).them(book => {
+    Book.findByPk(req.params.id).then(book => {
         if (!book) {
             res.status(404).send('book not found');
 
@@ -68,7 +68,7 @@ app.put('/books/:id', (req,res) => {
             }).catch(err => {
                 res.status(500).send(err);
             });
-         }
+        }
     }).catch(err => {
     res.status(500).send(err);
     });
@@ -80,7 +80,7 @@ app.delete('/books/:id', (req, res) => {
             res.status(404).send('Book not found');
         } else {
             book.destroy().then(() => {
-                book.send({});
+                res.send({});
             }).catch(err => {
                 res.status(500).send(err);
             });
